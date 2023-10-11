@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "905431021137",
+    "project_id": "hackonauts-a1e1b",
+    "storage_bucket": "hackonauts-a1e1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905431021137:android:bc9eeba01faae305142a70",
+        "android_client_info": {
+          "package_name": "kyawthu082.ijob_clone_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOSQI-op9JNIdiKvB9c-VXflJZKmftSqs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
