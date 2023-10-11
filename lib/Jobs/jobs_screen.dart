@@ -29,7 +29,7 @@ class _JobScreenState extends State<JobScreen> {
         return AlertDialog(
           backgroundColor: Colors.black54,
           title: const Text(
-            'project Category',
+            'Project Category',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 20,
