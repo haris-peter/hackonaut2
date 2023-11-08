@@ -108,7 +108,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         SizedBox(height: 10,),
         Divider(
           thickness: 1,
-          color: Colors.grey,
+          color: Colors.blue,
         ),
         SizedBox(height: 10,),
       ],
@@ -143,28 +143,19 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.white, Colors.white],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          stops: const [0.2, 0.9],
-        ),
+        color: Colors.black38,
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
+          title: Text('PROJECT DETAILS',style: TextStyle(color: Colors.black),textAlign: TextAlign.center,),
           flexibleSpace: Container(
             decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.white, Colors.white],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: const [0.2, 0.9],
-              ),
+              color: Colors.white,
             ),
           ),
           leading: IconButton(
-            icon: Icon(Icons.close, size: 40, color: Colors.white,),
+            icon: Icon(Icons.arrow_back_ios, size: 40, color: Colors.black,),
             onPressed: ()
             {
               Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JobScreen()));
@@ -178,7 +169,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Card(
-                  color: Colors.black54,
+                  color: Colors.transparent,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
@@ -212,7 +203,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   width: 3,
-                                  color: Colors.grey,
+                                  color: Colors.blue,
                                 ),
                                 shape: BoxShape.rectangle,
                                 image: DecorationImage(
@@ -418,7 +409,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
                             fontSize: 14,
-                            color: Colors.grey,
+                            color: Colors.white,
                           ),
                         ),
                         dividerWidget(),
@@ -493,7 +484,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   :
                                   postedDate!,
                               style: const TextStyle(
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               ),
@@ -519,7 +510,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   :
                               deadlineDate!,
                               style: const TextStyle(
-                                color: Colors.grey,
+                                color: Colors.blue,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               ),
@@ -606,7 +597,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                             await Fluttertoast.showToast(
                                               msg: 'Your comment has been added.',
                                               toastLength: Toast.LENGTH_LONG,
-                                              backgroundColor: Colors.grey,
+                                              backgroundColor: Colors.blue,
                                               fontSize: 18.0,
                                             );
                                             _commentController.clear();
@@ -706,6 +697,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   }
                                   return ListView.separated(
                                     shrinkWrap: true,
+                                  
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index)
                                     {
@@ -716,12 +708,13 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         commentBody: snapshot.data!['jobComments'][index]['commentBody'],
                                         commenterImageUrl: snapshot.data!['jobComments'][index]['userImageUrl'],
                                       );
+                                      
                                     },
                                     separatorBuilder: (context, index)
                                     {
                                       return const Divider(
                                         thickness: 1,
-                                        color: Colors.grey,
+                                        color: Colors.blue,
                                       );
                                     },
                                     itemCount: snapshot.data!['jobComments'].length,
