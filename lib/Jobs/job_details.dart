@@ -93,6 +93,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       isDeadlineAvailable = date.isAfter(DateTime.now());
     }
   }
+  
 
   @override
   void initState() {
@@ -158,7 +159,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
             icon: Icon(Icons.arrow_back_ios, size: 40, color: Colors.black,),
             onPressed: ()
             {
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => JobScreen()));
+              final FirebaseAuth _auth = FirebaseAuth.instance;
+              final User? user = _auth.currentUser;
+              final String uid = user!.uid;
+              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => JobScreen(
+                userID: uid,
+              )));
             },
           ),
         ),
