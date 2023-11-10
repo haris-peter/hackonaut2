@@ -26,7 +26,7 @@ class JobWidget extends StatefulWidget {
     required this.name,
     required this.recruitment,
     required this.email,
-    required this.location,
+    required this.location, 
 });
 
   @override
@@ -57,7 +57,7 @@ class _JobWidgetState extends State<JobWidget> {
                         await Fluttertoast.showToast(
                           msg: 'Job has been deleted',
                           toastLength: Toast.LENGTH_LONG,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.blueAccent,
                           fontSize: 18.0,);
                         Navigator.canPop(context) ? Navigator.pop(context) : null;
                       }
@@ -93,7 +93,7 @@ class _JobWidgetState extends State<JobWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white24,
+      color: Colors.blueAccent,
       elevation: 8,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: ListTile(

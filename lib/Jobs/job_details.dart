@@ -6,12 +6,15 @@ import 'package:ijob_clone_app/Jobs/jobs_screen.dart';
 import 'package:ijob_clone_app/Services/global_methods.dart';
 import 'package:ijob_clone_app/Services/global_variables.dart';
 import 'package:ijob_clone_app/Widgets/comments_widget.dart';
+import 'package:ijob_clone_app/theme/colors.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:uuid/uuid.dart';
+
 
 class JobDetailsScreen extends StatefulWidget {
 
   final String uploadedBy;
+
   final String jobID;
 
   const JobDetailsScreen({
@@ -93,7 +96,6 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       isDeadlineAvailable = date.isAfter(DateTime.now());
     }
   }
-  
 
   @override
   void initState() {
@@ -109,9 +111,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         SizedBox(height: 10,),
         Divider(
           thickness: 1,
-          color: Colors.blue,
+          color: Colors.white,
         ),
-        SizedBox(height: 10,),
+        SizedBox(height: 4,),
       ],
     );
   }
@@ -142,29 +144,31 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   
   @override
   Widget build(BuildContext context) {
+    final _currentIndex=01;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.black38,
+        color: Colors.white,
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text('PROJECT DETAILS',style: TextStyle(color: Colors.black),textAlign: TextAlign.center,),
+          // title: Text('PROJECT DETAILS',style: TextStyle(color: Colors.black),textAlign: TextAlign.center,),
           flexibleSpace: Container(
             decoration: BoxDecoration(
               color: Colors.white,
             ),
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios, size: 40, color: Colors.black,),
+            icon: Icon(Icons.arrow_back, size: 40, color: Colors.blue,),
             onPressed: ()
             {
-              final FirebaseAuth _auth = FirebaseAuth.instance;
-              final User? user = _auth.currentUser;
-              final String uid = user!.uid;
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => JobScreen(
-                userID: uid,
-              )));
+              
+          final FirebaseAuth _auth = FirebaseAuth.instance;
+          final User? user = _auth.currentUser;
+          final String uid = user!.uid;
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => JobScreen(
+            userID: uid,
+          )));
             },
           ),
         ),
@@ -175,28 +179,28 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: Card(
-                  color: Colors.transparent,
+                  color: Colors.white,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 4),
-                          child: Text(
-                            jobTitle == null
-                                ?
-                                ''
-                                :
-                                jobTitle!,
-                            maxLines: 3,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            ),
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.only(left: 4),
+                        //   // child: Text(
+                        //   //   jobTitle == null
+                        //   //       ?
+                        //   //       ''
+                        //   //       :
+                        //   //       jobTitle!,
+                        //   //   maxLines: 3,
+                        //   //   style: const TextStyle(
+                        //   //     color: Colors.black,
+                        //   //     fontWeight: FontWeight.bold,
+                        //   //     fontSize: 27,
+                        //   //   ),
+                        //   // ),
+                        // ),
 
                         const SizedBox(height: 20,),
 
@@ -204,14 +208,15 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Container(
-                              height: 60,
-                              width: 60,
+                              height: 80,
+                              width: 100,
                               decoration: BoxDecoration(
+
                                 border: Border.all(
-                                  width: 3,
-                                  color: Colors.blue,
+                                  width: 100,
+                                  color: Colors.white,
                                 ),
-                                shape: BoxShape.rectangle,
+                                shape: BoxShape.circle,
                                 image: DecorationImage(
                                   image: NetworkImage(
                                     userImageUrl == null
@@ -220,13 +225,16 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         :
                                         userImageUrl!,
                                   ),
+
                                   fit: BoxFit.fill,
                                 ),
                               ),
                             ),
                             Padding(
                               padding: const EdgeInsets.only(left: 10.0),
+
                               child: Column(
+
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
@@ -237,8 +245,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                         authorName!,
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.white,
+                                      fontSize: 20,
+                                      color: Colors.black,
                                     ),
                                   ),
 
@@ -246,7 +254,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
                                   Text(
                                     locationCompany!,
-                                    style: const TextStyle(color: Colors.grey),
+                                    style: const TextStyle(color: Colors.black,fontSize: 19),
                                   ),
                                 ],
                               ),
@@ -260,20 +268,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             Text(
                               applicants.toString(),
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
                               ),
                             ),
                             SizedBox(width: 6,),
                             Text(
-                              'collaborator',
-                              style: TextStyle(color: Colors.grey),
+                              'COLLABORATOR',
+                              style: TextStyle(color: Colors.black),
                             ),
                             const SizedBox(width: 10,),
                             const Icon(
                               Icons.how_to_reg_sharp,
-                              color: Colors.grey,
+                              color: Colors.black  ,
                             ),
                           ],
                         ),
@@ -289,7 +297,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                   'collaboration',
                                   style: TextStyle(
                                     fontSize: 18,
-                                    color: Colors.white,
+                                    color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -396,12 +404,271 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                 ),
                               ],
                             ),
+                        
+                        dividerWidget(),
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child:
+                              Image.asset('assets/icon/document.png', height: 20, color: KColors.primary),
+                            ),
+                            Expanded(
+                              child:
+                              Image.asset('assets/icon/museum.png', height: 20, color: KColors.icon),
+                            ),
+                            Expanded(
+                              child:
+                              Image.asset('assets/icon/wall-clock.png', height: 20, color: KColors.icon),
+                            ),
+                            Expanded(
+                              child: Image.asset('assets/icon/map.png', height: 20, color: KColors.icon),
+                            ),
+                          ],
+                        ),
+                        // IndexedStack(
+                        //   index: _currentIndex, // Set the index to determine which child to show
+                        //   children: [
+                        //
+                        //     Padding(
+                        //       padding: const EdgeInsets.all(4.0),
+                        //       child: Card(
+                        //         color: Colors.white,
+                        //         child: Padding(
+                        //           padding: const EdgeInsets.all(8.0),
+                        //           child: Column(
+                        //             crossAxisAlignment: CrossAxisAlignment.start,
+                        //             children: [
+                        //               Padding(
+                        //                 padding: const EdgeInsets.all(4.0),
+                        //                 child: Card(
+                        //                   color: Colors.white,
+                        //                   child: Padding(
+                        //                     padding: const EdgeInsets.all(8.0),
+                        //                     child: Column(
+                        //                       crossAxisAlignment: CrossAxisAlignment.start,
+                        //                       children: [
+                        //                         AnimatedSwitcher(
+                        //                           duration: const Duration(
+                        //                             milliseconds:500,
+                        //                           ),
+                        //                           child: _isCommenting
+                        //                               ?
+                        //                           Row(
+                        //                             crossAxisAlignment: CrossAxisAlignment.start,
+                        //                             children: [
+                        //                               Flexible(
+                        //                                 flex: 3,
+                        //                                 child: TextField(
+                        //                                   controller: _commentController,
+                        //                                   style: const TextStyle(
+                        //                                     color: Colors.white,
+                        //                                   ),
+                        //                                   maxLength: 200,
+                        //                                   keyboardType: TextInputType.text,
+                        //                                   maxLines: 6,
+                        //                                   decoration: InputDecoration(
+                        //                                     filled: true,
+                        //                                     fillColor: Theme.of(context).scaffoldBackgroundColor,
+                        //                                     enabledBorder: const UnderlineInputBorder(
+                        //                                       borderSide: BorderSide(color: Colors.white),
+                        //                                     ),
+                        //                                     focusedBorder: const OutlineInputBorder(
+                        //                                       borderSide: BorderSide(color: Colors.pink),
+                        //                                     ),
+                        //                                   ),
+                        //                                 ),
+                        //                               ),
+                        //                               Flexible(
+                        //                                 child: Column(
+                        //                                   children: [
+                        //                                     Padding(
+                        //                                       padding: const EdgeInsets.symmetric(horizontal: 8),
+                        //                                       child: MaterialButton(
+                        //                                         onPressed: () async {
+                        //                                           if(_commentController.text.length < 7)
+                        //                                           {
+                        //                                             GlobalMethod.showErrorDialog(
+                        //                                               error: 'Comment cannot be less than 7 characters',
+                        //                                               ctx: context,
+                        //                                             );
+                        //                                           }
+                        //                                           else
+                        //                                           {
+                        //                                             final _genertedId = const Uuid().v4();
+                        //                                             await FirebaseFirestore.instance
+                        //                                                 .collection('jobs')
+                        //                                                 .doc(widget.jobID)
+                        //                                                 .update({
+                        //                                               'jobComments':
+                        //                                               FieldValue.arrayUnion([{
+                        //                                                 'userId': FirebaseAuth.instance.currentUser!.uid,
+                        //                                                 'commentId': _genertedId,
+                        //                                                 'name': name,
+                        //                                                 'userImageUrl': userImage,
+                        //                                                 'commentBody': _commentController.text,
+                        //                                                 'time': Timestamp.now(),
+                        //                                               }])
+                        //                                             });
+                        //                                             await Fluttertoast.showToast(
+                        //                                               msg: 'Your comment has been added.',
+                        //                                               toastLength: Toast.LENGTH_LONG,
+                        //                                               backgroundColor: Colors.blue,
+                        //                                               fontSize: 18.0,
+                        //                                             );
+                        //                                             _commentController.clear();
+                        //                                           }
+                        //                                           setState(() {
+                        //                                             showComment = true;
+                        //                                           });
+                        //                                         },
+                        //                                         color: Colors.blueAccent,
+                        //                                         elevation: 0,
+                        //                                         shape: RoundedRectangleBorder(
+                        //                                           borderRadius: BorderRadius.circular(8),
+                        //                                         ),
+                        //                                         child: const Text(
+                        //                                           'Post',
+                        //                                           style: TextStyle(
+                        //                                             color: Colors.white,
+                        //                                             fontWeight: FontWeight.bold,
+                        //                                             fontSize: 14,
+                        //                                           ),
+                        //                                         ),
+                        //                                       ),
+                        //                                     ),
+                        //                                     TextButton(
+                        //                                       onPressed: (){
+                        //                                         setState(() {
+                        //                                           _isCommenting = !_isCommenting;
+                        //                                           showComment = false;
+                        //                                         });
+                        //                                       },
+                        //                                       child: const Text('Cancel'),
+                        //                                     ),
+                        //                                   ],
+                        //                                 ),
+                        //                               ),
+                        //                             ],
+                        //                           )
+                        //                               :
+                        //                           Row(
+                        //                             mainAxisAlignment: MainAxisAlignment.center,
+                        //                             children: [
+                        //                               IconButton(
+                        //                                 onPressed: (){
+                        //                                   setState(() {
+                        //                                     _isCommenting = !_isCommenting;
+                        //                                   });
+                        //                                 },
+                        //                                 icon: const Icon(
+                        //                                   Icons.add_comment,
+                        //                                   color: Colors.blueAccent,
+                        //                                   size: 40,
+                        //                                 ),
+                        //                               ),
+                        //
+                        //                               const SizedBox(width: 10,),
+                        //
+                        //                               IconButton(
+                        //                                 onPressed: (){
+                        //                                   setState(() {
+                        //                                     showComment = true;
+                        //                                   });
+                        //                                 },
+                        //                                 icon: const Icon(
+                        //                                   Icons.arrow_drop_down_circle,
+                        //                                   color: Colors.blueAccent,
+                        //                                   size: 40,
+                        //                                 ),
+                        //                               ),
+                        //                             ],
+                        //                           ),
+                        //                         ),
+                        //                         showComment == false
+                        //                             ?
+                        //                         Container(
+                        //
+                        //                         )
+                        //                             :
+                        //                         Padding(
+                        //                           padding: const EdgeInsets.all(16.0),
+                        //                           child: FutureBuilder<DocumentSnapshot>(
+                        //                             future: FirebaseFirestore.instance
+                        //                                 .collection('jobs')
+                        //                                 .doc(widget.jobID)
+                        //                                 .get(),
+                        //                             builder: (context, snapshot)
+                        //                             {
+                        //                               if (snapshot.connectionState == ConnectionState.waiting)
+                        //                               {
+                        //                                 return const Center(child: CircularProgressIndicator(),);
+                        //                               }
+                        //                               else
+                        //                               {
+                        //                                 if(snapshot.data == null)
+                        //                                 {
+                        //                                   const Center(child: Text('No Comment for this project.'),);
+                        //                                 }
+                        //                               }
+                        //                               return ListView.separated(
+                        //                                 shrinkWrap: true,
+                        //
+                        //                                 physics: const NeverScrollableScrollPhysics(),
+                        //                                 itemBuilder: (context, index)
+                        //                                 {
+                        //                                   return CommentWidget(
+                        //                                     commentId: snapshot.data!['jobComments'][index]['commentId'],
+                        //                                     commenterId: snapshot.data!['jobComments'][index]['userId'],
+                        //                                     commenterName: snapshot.data!['jobComments'][index]['name'],
+                        //                                     commentBody: snapshot.data!['jobComments'][index]['commentBody'],
+                        //                                     commenterImageUrl: snapshot.data!['jobComments'][index]['userImageUrl'],
+                        //                                   );
+                        //
+                        //                                 },
+                        //                                 separatorBuilder: (context, index)
+                        //                                 {
+                        //                                   return const Divider(
+                        //                                     thickness: 1,
+                        //                                     color: Colors.blue,
+                        //                                   );
+                        //                                 },
+                        //                                 itemCount: snapshot.data!['jobComments'].length,
+                        //                               );
+                        //                             },
+                        //                           ),
+                        //                         ),
+                        //                       ],
+                        //                     ),
+                        //                   ),
+                        //                 ),
+                        //               ),
+                        //             ],
+                        //           ),
+                        //         ),
+                        //       ),
+                        //     ),
+                        //     Text(
+                        //       jobDescription == null
+                        //           ?
+                        //       ''
+                        //           :
+                        //       jobDescription!,
+                        //       textAlign: TextAlign.justify,
+                        //       style: const TextStyle(
+                        //         fontSize: 13,
+                        //         color: Colors.grey,
+                        //       ),
+                        //     ),
+                        //     // Add other children to the IndexedStack as needed
+                        //   ],
+                        // ),
                         dividerWidget(),
                         const Text(
-                          'project Description',
+                          'Project Description',
                           style: TextStyle(
                             fontSize: 18,
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -414,8 +681,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                               jobDescription!,
                           textAlign: TextAlign.justify,
                           style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
+                            fontSize: 13,
+                            color: Colors.grey,
                           ),
                         ),
                         dividerWidget(),
@@ -427,11 +694,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
               Padding(
                 padding: EdgeInsets.all(4.0),
                 child: Card(
-                  color: Colors.black54,
+                  color: Colors.white,
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const SizedBox(height: 10,),
                         Center(
@@ -461,26 +728,27 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             color: Colors.blueAccent,
                             elevation: 0,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(13),
+
+                              borderRadius: BorderRadius.circular(10),
                             ),
                             child: const Text(
                               'Easy collab Now',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                                fontSize: 18,
                               ),
                             ),
                           ),
                         ),
-                        dividerWidget(),
+                        // dividerWidget(),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             const Text(
                               'Uploaded on:',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                             Text(
@@ -506,7 +774,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             const Text(
                               'Published date:',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                             Text(
@@ -523,216 +791,216 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                             ),
                           ],
                         ),
-                        dividerWidget(),
+                        // dividerWidget(),
                       ],
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Card(
-                  color: Colors.black54,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AnimatedSwitcher(
-                            duration: const Duration(
-                              milliseconds:500,
-                            ),
-                          child: _isCommenting
-                          ?
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                flex: 3,
-                                child: TextField(
-                                  controller: _commentController,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                  ),
-                                  maxLength: 200,
-                                  keyboardType: TextInputType.text,
-                                  maxLines: 6,
-                                  decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Theme.of(context).scaffoldBackgroundColor,
-                                    enabledBorder: const UnderlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.white),
+                Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Card(
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          AnimatedSwitcher(
+                              duration: const Duration(
+                                milliseconds:500,
+                              ),
+                            child: _isCommenting
+                            ?
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  flex: 3,
+                                  child: TextField(
+                                    controller: _commentController,
+                                    style: const TextStyle(
+                                      color: Colors.white,
                                     ),
-                                    focusedBorder: const OutlineInputBorder(
-                                      borderSide: BorderSide(color: Colors.pink),
+                                    maxLength: 200,
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 6,
+                                    decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Theme.of(context).scaffoldBackgroundColor,
+                                      enabledBorder: const UnderlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.white),
+                                      ),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(color: Colors.pink),
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Flexible(
-                                child: Column(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                                      child: MaterialButton(
-                                        onPressed: () async {
-                                          if(_commentController.text.length < 7)
-                                          {
-                                            GlobalMethod.showErrorDialog(
-                                                error: 'Comment cannot be less than 7 characters',
-                                                ctx: context,
-                                            );
-                                          }
-                                          else
-                                          {
-                                            final _genertedId = const Uuid().v4();
-                                            await FirebaseFirestore.instance
-                                                .collection('jobs')
-                                                .doc(widget.jobID)
-                                                .update({
-                                              'jobComments':
-                                                  FieldValue.arrayUnion([{
-                                                    'userId': FirebaseAuth.instance.currentUser!.uid,
-                                                    'commentId': _genertedId,
-                                                    'name': name,
-                                                    'userImageUrl': userImage,
-                                                    'commentBody': _commentController.text,
-                                                    'time': Timestamp.now(),
-                                                  }])
+                                Flexible(
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                                        child: MaterialButton(
+                                          onPressed: () async {
+                                            if(_commentController.text.length < 7)
+                                            {
+                                              GlobalMethod.showErrorDialog(
+                                                  error: 'Comment cannot be less than 7 characters',
+                                                  ctx: context,
+                                              );
+                                            }
+                                            else
+                                            {
+                                              final _genertedId = const Uuid().v4();
+                                              await FirebaseFirestore.instance
+                                                  .collection('jobs')
+                                                  .doc(widget.jobID)
+                                                  .update({
+                                                'jobComments':
+                                                    FieldValue.arrayUnion([{
+                                                      'userId': FirebaseAuth.instance.currentUser!.uid,
+                                                      'commentId': _genertedId,
+                                                      'name': name,
+                                                      'userImageUrl': userImage,
+                                                      'commentBody': _commentController.text,
+                                                      'time': Timestamp.now(),
+                                                    }])
+                                              });
+                                              await Fluttertoast.showToast(
+                                                msg: 'Your comment has been added.',
+                                                toastLength: Toast.LENGTH_LONG,
+                                                backgroundColor: Colors.blue,
+                                                fontSize: 18.0,
+                                              );
+                                              _commentController.clear();
+                                            }
+                                            setState(() {
+                                              showComment = true;
                                             });
-                                            await Fluttertoast.showToast(
-                                              msg: 'Your comment has been added.',
-                                              toastLength: Toast.LENGTH_LONG,
-                                              backgroundColor: Colors.blue,
-                                              fontSize: 18.0,
-                                            );
-                                            _commentController.clear();
-                                          }
-                                          setState(() {
-                                            showComment = true;
-                                          });
-                                        },
-                                        color: Colors.blueAccent,
-                                        elevation: 0,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: const Text(
-                                          'Post',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14,
+                                          },
+                                          color: Colors.blueAccent,
+                                          elevation: 0,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(8),
+                                          ),
+                                          child: const Text(
+                                            'Post',
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 14,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    TextButton(
+                                      TextButton(
+                                          onPressed: (){
+                                            setState(() {
+                                              _isCommenting = !_isCommenting;
+                                              showComment = false;
+                                            });
+                                          },
+                                          child: const Text('Cancel'),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            )
+                                :
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    IconButton(
                                         onPressed: (){
                                           setState(() {
                                             _isCommenting = !_isCommenting;
-                                            showComment = false;
                                           });
                                         },
-                                        child: const Text('Cancel'),
+                                        icon: const Icon(
+                                          Icons.add_comment,
+                                          color: Colors.blueAccent,
+                                          size: 40,
+                                        ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
-                              :
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  IconButton(
+
+                                    const SizedBox(width: 10,),
+
+                                    IconButton(
                                       onPressed: (){
                                         setState(() {
-                                          _isCommenting = !_isCommenting;
+                                          showComment = true;
                                         });
                                       },
                                       icon: const Icon(
-                                        Icons.add_comment,
+                                        Icons.arrow_drop_down_circle,
                                         color: Colors.blueAccent,
                                         size: 40,
                                       ),
-                                  ),
+                                      ),
+                                  ],
+                                ),
+                          ),
+                          showComment == false
+                              ?
+                          Container(
 
-                                  const SizedBox(width: 10,),
-
-                                  IconButton(
-                                    onPressed: (){
-                                      setState(() {
-                                        showComment = true;
-                                      });
-                                    },
-                                    icon: const Icon(
-                                      Icons.arrow_drop_down_circle,
-                                      color: Colors.blueAccent,
-                                      size: 40,
-                                    ),
-                                    ),
-                                ],
-                              ),
-                        ),
-                        showComment == false
-                            ?
-                        Container(
-
-                        )
-                            :
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: FutureBuilder<DocumentSnapshot>(
-                                future: FirebaseFirestore.instance
-                                .collection('jobs')
-                                    .doc(widget.jobID)
-                                .get(),
-                                builder: (context, snapshot)
-                                {
-                                  if (snapshot.connectionState == ConnectionState.waiting)
+                          )
+                              :
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: FutureBuilder<DocumentSnapshot>(
+                                  future: FirebaseFirestore.instance
+                                  .collection('jobs')
+                                      .doc(widget.jobID)
+                                  .get(),
+                                  builder: (context, snapshot)
                                   {
-                                    return const Center(child: CircularProgressIndicator(),);
-                                  }
-                                  else
-                                  {
-                                    if(snapshot.data == null)
+                                    if (snapshot.connectionState == ConnectionState.waiting)
                                     {
-                                      const Center(child: Text('No Comment for this project.'),);
+                                      return const Center(child: CircularProgressIndicator(),);
                                     }
-                                  }
-                                  return ListView.separated(
-                                    shrinkWrap: true,
-                                  
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index)
+                                    else
                                     {
-                                      return CommentWidget(
-                                        commentId: snapshot.data!['jobComments'][index]['commentId'],
-                                        commenterId: snapshot.data!['jobComments'][index]['userId'],
-                                        commenterName: snapshot.data!['jobComments'][index]['name'],
-                                        commentBody: snapshot.data!['jobComments'][index]['commentBody'],
-                                        commenterImageUrl: snapshot.data!['jobComments'][index]['userImageUrl'],
-                                      );
-                                      
-                                    },
-                                    separatorBuilder: (context, index)
-                                    {
-                                      return const Divider(
-                                        thickness: 1,
-                                        color: Colors.blue,
-                                      );
-                                    },
-                                    itemCount: snapshot.data!['jobComments'].length,
-                                  );
-                                },
+                                      if(snapshot.data == null)
+                                      {
+                                        const Center(child: Text('No Comment for this project.'),);
+                                      }
+                                    }
+                                    return ListView.separated(
+                                      shrinkWrap: true,
+
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index)
+                                      {
+                                        return CommentWidget(
+                                          commentId: snapshot.data!['jobComments'][index]['commentId'],
+                                          commenterId: snapshot.data!['jobComments'][index]['userId'],
+                                          commenterName: snapshot.data!['jobComments'][index]['name'],
+                                          commentBody: snapshot.data!['jobComments'][index]['commentBody'],
+                                          commenterImageUrl: snapshot.data!['jobComments'][index]['userImageUrl'],
+                                        );
+
+                                      },
+                                      separatorBuilder: (context, index)
+                                      {
+                                        return const Divider(
+                                          thickness: 1,
+                                          color: Colors.blue,
+                                        );
+                                      },
+                                      itemCount: snapshot.data!['jobComments'].length,
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),

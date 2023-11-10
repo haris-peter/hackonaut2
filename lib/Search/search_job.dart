@@ -24,9 +24,9 @@ class _SearchScreenState extends State<SearchScreen> {
       decoration: const InputDecoration(
         hintText: 'Search for projects....',
         border: InputBorder.none,
-        hintStyle: TextStyle(color: Colors.white,),
+        hintStyle: TextStyle(color: Colors.black,),
       ),
-      style: const TextStyle(color: Colors.white,),
+      style: const TextStyle(color: Colors.black,),
       onChanged: (query) => updateSearchQuery(query),
     );
   }
@@ -35,7 +35,8 @@ class _SearchScreenState extends State<SearchScreen> {
   {
     return <Widget>[
       IconButton(
-        icon: const Icon(Icons.clear),
+        icon: const Icon(Icons.clear,color: Colors.black,),
+
         onPressed: (){
           _clearSearchQuery();
         },
@@ -62,37 +63,40 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.deepOrange.shade300, Colors.blueAccent],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          stops: const [0.2, 0.9],
-        ),
-      ),
+      color: Colors.white,
+      // decoration: BoxDecoration(
+      //   gradient: LinearGradient(
+      //     colors: [Colors.deepOrange.shade300, Colors.blueAccent],
+      //     begin: Alignment.centerLeft,
+      //     end: Alignment.centerRight,
+      //     stops: const [0.2, 0.9],
+      //   ),
+      // ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: AppBar(
           flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.deepOrange.shade300, Colors.blueAccent],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: const [0.2, 0.9],
-              ),
-            ),
+            color: Colors.white,
+            // decoration: BoxDecoration(
+            //   gradient: LinearGradient(
+            //     colors: [Colors.deepOrange.shade300, Colors.blueAccent],
+            //     begin: Alignment.centerLeft,
+            //     end: Alignment.centerRight,
+            //     stops: const [0.2, 0.9],
+            //   ),
+            // ),
           ),
           leading: IconButton(
             onPressed: (){
-              final FirebaseAuth _auth = FirebaseAuth.instance;
-              final User? user = _auth.currentUser;
-              final String uid = user!.uid;
-              Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => JobScreen(
-              userID: uid,
-                )));
+              
+          final FirebaseAuth _auth = FirebaseAuth.instance;
+          final User? user = _auth.currentUser;
+          final String uid = user!.uid;
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => JobScreen(
+            userID: uid,
+          )));
             },
-            icon: const Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back,color: Colors.black,),
           ),
           title: _buildSearchField(),
           actions: _buildActions(),

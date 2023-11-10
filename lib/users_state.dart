@@ -25,7 +25,7 @@ class UserState extends StatelessWidget {
         else if (userSnapshot.hasData)
         {
           print('user is already logged in yet.');
-          return JobScreen(userID: uid,);
+          return JobScreen(userID: uid);
         }
 
         else if(userSnapshot.hasError)

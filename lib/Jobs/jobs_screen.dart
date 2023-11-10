@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:ijob_clone_app/Jobs/job_listing.dart';
 import 'package:ijob_clone_app/Search/search_job.dart';
 import 'package:ijob_clone_app/Services/global_variables.dart';
 import 'package:ijob_clone_app/Widgets/bottom_nav_bar.dart';
@@ -23,7 +24,7 @@ class _JobScreenState extends State<JobScreen> {
   
 
   String? jobCategoryFilter;
-  String? imageUrl;
+  String? imageUrl = '';
   bool _isLoading = false;
   bool _isSameUser = false;
 
@@ -59,6 +60,7 @@ class _JobScreenState extends State<JobScreen> {
       _isLoading = false;
     }
   }
+  
   _showTaskCategoriesDialog({required Size size})
   {
     showDialog(
@@ -148,8 +150,13 @@ class _JobScreenState extends State<JobScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getUserData();
     Persistent persistentObject = Persistent();
     persistentObject.getMyData();
+  }
+  Stream<QuerySnapshot<Map<String, dynamic>>> jobStream() {
+    // Replace 'jobs' with the name of your collection
+    return FirebaseFirestore.instance.collection('jobs').snapshots();
   }
 
   @override
@@ -157,96 +164,30 @@ class _JobScreenState extends State<JobScreen> {
     Size size = MediaQuery.of(context).size;
     return Container(
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.deepOrange.shade300, Colors.blueAccent],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-          stops: const [0.2, 0.9],
-        ),
+       color: Colors.white
       ),
       child: Scaffold(
         bottomNavigationBar: BottomNavigationBarForApp(indexNum: 0),
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          flexibleSpace: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.deepOrange.shade300, Colors.blueAccent],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: const [0.2, 0.9],
-              ),
-            ),
-          ),
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(Icons.filter_list_rounded, color: Colors.black,),
-            onPressed: (){
-              _showTaskCategoriesDialog(size: size);
-            },
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.search_outlined, color: Colors.black,),
-              onPressed: ()
-              {
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (c) => SearchScreen()));
-              },
-            ),
+        
+        body:SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _appBar(context),
+            _header(context),
+            Container(
+                  height: size.height * 0.7, // Adjust the height as needed
+                  child: JobListWidget(jobStream: FirebaseFirestore.instance.collection('jobs').snapshots()),
+                ),
           ],
         ),
-        body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-          stream: FirebaseFirestore.instance
-              .collection('jobs')
-              .where('jobCategory', isEqualTo: jobCategoryFilter)
-              .where('recruitment', isEqualTo: true)
-              .orderBy('createdAt', descending: false)
-              .snapshots(),
-          builder: (context, AsyncSnapshot snapshot)
-          {
-            if(snapshot.connectionState == ConnectionState.waiting)
-            {
-              return const Center(child: CircularProgressIndicator(),);
-            }
-            else if(snapshot.connectionState == ConnectionState.active)
-            {
-              if(snapshot.data?.docs.isNotEmpty == true)
-              {
-                return ListView.builder(
-                  itemCount: snapshot.data?.docs.length,
-                  itemBuilder: (BuildContext context, int index)
-                  {
-                    return JobWidget(
-                        jobTitle: snapshot.data?.docs[index]['jobTitle'],
-                        jobDescription: snapshot.data?.docs[index]['jobDescription'],
-                        jobId: snapshot.data?.docs[index]['jobId'],
-                        uploadedBy: snapshot.data?.docs[index]['uploadedBy'],
-                        userImage: snapshot.data?.docs[index]['userImage'],
-                        name: snapshot.data?.docs[index]['name'],
-                        recruitment: snapshot.data?.docs[index]['recruitment'],
-                        email: snapshot.data?.docs[index]['email'],
-                        location: snapshot.data?.docs[index]['location'],
-                    );
-                  }
-                );
-              }
-              else
-              {
-                return const Center(
-                  child: Text('Ther is no jobs'),
-                );
-              }
-            }
-            return Center(
-              child: Text(
-                'Somethinf went wrong',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold, fontSize: 30,
-                ),
-              ),
-            );
-          },
+      ),
         ),
+      ),
         ),
     );
   }
@@ -263,6 +204,7 @@ class _JobScreenState extends State<JobScreen> {
                                   'https://cdn.icon-icons.com/icons2/2643/PNG/512/male_boy_person_people_avatar_icon_159358.png'
                                       :
                                   imageUrl!,
+                                  
                                 ),
           ),
           Spacer(),
@@ -295,7 +237,7 @@ class _JobScreenState extends State<JobScreen> {
           SizedBox(
             height: 6,
           ),
-          Text("Find your perfect job",
+          Text("Reccomended Project",
               style: TextStyle(
                   fontSize: 20,
                   color: KColors.title,
@@ -308,4 +250,8 @@ class _JobScreenState extends State<JobScreen> {
       ),
     );
   }
+  
+
+
+  
 }

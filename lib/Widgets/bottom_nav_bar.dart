@@ -6,6 +6,7 @@ import 'package:ijob_clone_app/Search/profile_company.dart';
 import 'package:ijob_clone_app/Search/search_companies.dart';
 import 'package:ijob_clone_app/users_state.dart';
 
+
 import '../Jobs/jobs_screen.dart';
 
 class BottomNavigationBarForApp extends StatelessWidget {
